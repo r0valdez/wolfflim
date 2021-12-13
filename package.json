@@ -1,0 +1,29 @@
+{
+  "name": "wolffilm.nl",
+  "license": "UNLICENSED",
+  "author": "DTAIL Design",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "start": "nuxt start"
+  },
+  "dependencies": {
+    "@egjs/flicking-plugins": "^4.2.2",
+    "@egjs/vue-flicking": "^4.4.2",
+    "nuxt": "^2.15.8"
+  },
+  "devDependencies": {
+    "@nuxt/image": "^0.6.0",
+    "@nuxt/types": "^2.15.8",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/google-fonts": "^1.3.0",
+    "@nuxtjs/tailwindcss": "^4.2.1",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.4",
+    "prettier": "2.5.1",
+    "sass": "^1.44.0",
+    "tailwindcss": "^2.2.19"
+  }
+}
