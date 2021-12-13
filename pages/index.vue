@@ -219,6 +219,57 @@
         <p class="font-light md:text-xl first-letter-large">
           Bestel hier je ticket voor de speciale voorvertoningen van WOLF
         </p>
+        <div class="flex items-center w-full">
+          <img
+            src="~/assets/images/logo-cin-vue.png"
+            class="logo-cinema mr-2"
+          />
+          <h4 class="text-2xl font-semibold text-gray-500 mr-auto">Vue</h4>
+          <t-btn
+            btn-text="bestel"
+            target="_blank"
+            href="https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+          />
+        </div>
+        <div class="city-list text-lg flex gap-3">
+          <span>Amersfoort</span>
+          <span>Apeldoorn</span>
+          <span>Den Bosch</span>
+          <span>Deventer</span>
+          <span>Doetinchem</span>
+          <span>Eindhoven</span>
+          <span>Hilversum</span>
+          <span>Hoogeveen</span>
+          <span>Hoogezand</span>
+          <span>Kerkrade</span>
+          <span>Nijmegen</span>
+          <span>Vlaardingen</span>
+        </div>
+        <hr class="my-4" />
+        <div class="flex items-center w-full">
+          <img
+            src="~/assets/images/logo-cin-kinepolis.png"
+            class="logo-cinema mr-2"
+          />
+          <h4 class="text-2xl font-semibold text-gray-500 mr-auto">
+            Kinepolis
+          </h4>
+          <t-btn btn-text="bestel" target="_blank" href="#" />
+        </div>
+        <div class="city-list text-lg flex gap-3">
+          <span>Amersfoort</span>
+          <span>Apeldoorn</span>
+          <span>Den Bosch</span>
+          <span>Deventer</span>
+          <span>Doetinchem</span>
+          <span>Eindhoven</span>
+          <span>Hilversum</span>
+          <span>Hoogeveen</span>
+          <span>Hoogezand</span>
+          <span>Kerkrade</span>
+          <span>Nijmegen</span>
+          <span>Vlaardingen</span>
+        </div>
       </div>
     </section>
 
@@ -337,11 +388,21 @@
     width: 40px;
   }
 }
+.logo-cinema {
+  width: 60px;
+}
+.city-list {
+  @apply flex-wrap;
+  span {
+    @apply bg-gray-200 px-1.5;
+  }
+}
 </style>
 
 <script>
 import FooterImages from "@/components/Footer";
 import Modal from "@/components/Modal";
+import gsap from "nuxt-gsap-module";
 
 export default {
   components: {
@@ -360,5 +421,6 @@ export default {
       title: this.title,
     };
   },
+  mounted() {},
 };
 </script>

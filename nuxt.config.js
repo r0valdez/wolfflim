@@ -1,5 +1,17 @@
 export default {
-  buildModules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@nuxt/image"],
+  buildModules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/google-fonts",
+    "@nuxt/image",
+    "nuxt-gsap-module",
+  ],
+  gsap: {
+    /* Module Options */
+    extraPlugins: {
+      scrollTo: true,
+      scrollTrigger: true,
+    },
+  },
   components: true,
   target: "static",
   server: {
@@ -26,10 +38,95 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "msapplication-TileColor", content: "#cd1719" },
+      { name: "theme-color", content: "#cd1719" },
 
       // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-      { hid: "description", name: "description", content: "Meta description" },
+      {
+        hid: "description",
+        name: "description",
+        content: "Het meest opzienbarende natuurverhaal van Nederland!",
+      },
+      { property: "og:site_name", content: "Wolf film" },
+      { hid: "og:type", property: "og:type", content: "website" },
+      {
+        hid: "og:url",
+        property: "og:url",
+        content: "https://www.wolffilm.nl",
+      },
+      {
+        hid: "og:title",
+        property: "og:title",
+        content: "Het meest opzienbarende natuurverhaal van Nederland!",
+      },
+      {
+        hid: "og:description",
+        property: "og:description",
+        content: "Het meest opzienbarende natuurverhaal van Nederland!",
+      },
+      {
+        hid: "og:image",
+        property: "og:image",
+        content: "/wolf-1200x630.png",
+      },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+
+      // { name: "twitter:site", content: "@bobross" },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        hid: "twitter:url",
+        name: "twitter:url",
+        content: "https://www.wolffilm.nl",
+      },
+      {
+        hid: "twitter:title",
+        name: "twitter:title",
+        content: "Het meest opzienbarende natuurverhaal van Nederland!",
+      },
+      {
+        hid: "twitter:description",
+        name: "twitter:description",
+        content: "Het meest opzienbarende natuurverhaal van Nederland!",
+      },
+      {
+        hid: "twitter:image",
+        name: "twitter:image",
+        content: "/wolf-1200x630.png",
+      },
+
       { hid: "robots", name: "robots", content: "noindex" },
+    ],
+    link: [
+      {
+        hid: "canonical",
+        rel: "canonical",
+        href: "https://www.wolffilm.nl",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "favicon/favicon-32x32.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "favicon/favicon-16x16.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "favicon/apple-touch-icon.png",
+      },
+      { rel: "manifest", href: "favicon/site.webmanifest" },
+      {
+        rel: "mask-icon",
+        type: "image/png",
+        color: "#cd1719",
+        href: "favicon/safari-pinned-tab.svg",
+      },
     ],
   },
 };
