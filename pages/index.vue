@@ -207,7 +207,7 @@
 
     <section class="bg-gray-900 text-white p-4 text-center">
       <h2 class="text-2xl md:text-4xl font-semibold uppercase leading-tight">
-        Vanaf 3 februari in de bioscoop en het filmtheater
+        30 januari te zien alsd voorvertoning
       </h2>
     </section>
 
@@ -403,6 +403,7 @@
 import FooterImages from "@/components/Footer";
 import Modal from "@/components/Modal";
 import gsap from "nuxt-gsap-module";
+import "@egjs/flicking-plugins/dist/pagination.css";
 
 export default {
   components: {
