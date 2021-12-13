@@ -403,7 +403,6 @@
 import FooterImages from "@/components/Footer";
 import Modal from "@/components/Modal";
 import gsap from "nuxt-gsap-module";
-import "@egjs/flicking-plugins/dist/pagination.css";
 
 export default {
   components: {
