@@ -101,12 +101,12 @@ export default {
       {
         hid: "flicking",
         rel: "stylesheet",
-        href: "https://www.wolffilm.nl",
+        href: "https://naver.github.io/egjs-flicking-plugins/release/latest/dist/flicking-plugins.css",
       },
       {
         hid: "canonical",
         rel: "canonical",
-        href: "https://naver.github.io/egjs-flicking-plugins/release/latest/dist/flicking-plugins.css",
+        href: "https://www.wolffilm.nl",
       },
       {
         rel: "icon",
