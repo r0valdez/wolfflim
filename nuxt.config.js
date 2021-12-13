@@ -31,7 +31,7 @@ export default {
     },
     display: "swap", // 'auto' | 'block' | 'swap' | 'fallback' | 'optional',
   },
-  css: ["./assets/css/common.css"],
+  css: ["./assets/css/common.scss"],
   head: {
     title: "Wolf",
     titleTemplate: "%s - Wolf",
@@ -99,9 +99,14 @@ export default {
     ],
     link: [
       {
+        hid: "flicking",
+        rel: "stylesheet",
+        href: "https://www.wolffilm.nl",
+      },
+      {
         hid: "canonical",
         rel: "canonical",
-        href: "https://www.wolffilm.nl",
+        href: "https://naver.github.io/egjs-flicking-plugins/release/latest/dist/flicking-plugins.css",
       },
       {
         rel: "icon",
