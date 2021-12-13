@@ -17,7 +17,7 @@
     <div class="hero flex relative overflow-hidden">
       <div
         style="position: absolute; z-index: -99; width: 100%; height: 100%"
-        class="bg-gray-100"
+        class="bg-gray-900"
       >
         <div class="video-wrapper">
           <iframe
