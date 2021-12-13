@@ -1,0 +1,110 @@
+.clear-fix:before,
+.clear-fix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+.clear-fix:after {
+    clear: both;
+}
+
+.site-width {
+    max-width: 1200px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Flicking */
+
+.flicking {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(55, 55, 55, 0.1);
+    /*border-radius: 5px;*/
+}
+.flicking .panel,
+.flicking .infinite {
+    position: relative;
+    display: block;
+    width: 200px;
+    margin-top: 5px;
+    background: #333;
+    height: 120px;
+    text-align: center;
+    line-height: 120px;
+}
+
+.plugins h1 {
+    line-height: 1;
+}
+.plugins h1 a {
+    font-size: 20px;
+    vertical-align: bottom;
+    margin-left: 10px;
+    /* color: #55e; */
+}
+.plugins .flicking {
+    width: 500px;
+    height: 200px;
+    margin: 0 auto;
+    background: #eee;
+    background: rgba(55, 55, 55 0.1);
+    /*border-radius: 5px;*/
+}
+.plugins .flicking .panel {
+    position: relative;
+    display: block;
+    /*border-radius: 5px;*/
+    width: 400px;
+    margin-top: 5px;
+    background: #555;
+    height: 200px;
+    text-align: center;
+    line-height: 200px;
+    overflow: hidden;
+}
+.plugins .panel:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+.plugins .panel img {
+    top: -100%;
+    bottom: -100%;
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.component-fade-enter-active,
+.component-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+    /* .component-fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+.flicking-viewport {
+    display: flex;
+}
+.flicking-camera {
+    display: flex;
+    flex-direction: row;
+}
+.flicking-pagination-bullet-active {
+    background-color: white !important;
+}
+.flicking-arrow-prev::before, .flicking-arrow-prev::after, .flicking-arrow-next::before, .flicking-arrow-next::after {
+    background-color: white !important;
+    width: 20px!important;
+    height: 5px!important;
+}
