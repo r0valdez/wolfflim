@@ -1,6 +1,9 @@
-// Detect if a link's href goes to the current page
-import gsap from "gsap";
+import { gsap } from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
+gsap.registerPlugin(ScrollToPlugin);
+
+// Detect if a link's href goes to the current page
 function getSamePageAnchor(link) {
   if (
     link.protocol !== window.location.protocol ||
@@ -19,7 +22,12 @@ function scrollToHash(hash, e) {
   const elem = hash ? document.querySelector(hash) : false;
   if (elem) {
     if (e) e.preventDefault();
-    gsap.to(window, { scrollTo: elem });
+    // Offset is used for the menu
+    gsap.to(window, {
+      duration: 0.7,
+      scrollTo: { y: elem, offsetY: 60 },
+      ease: "power2",
+    });
   }
 }
 

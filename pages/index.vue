@@ -1,6 +1,7 @@
 <template>
   <div>
     <NavMenu />
+
     <Modal v-if="showModal" @close-modal="showModal = false">
       <div class="video-container">
         <iframe
@@ -28,35 +29,6 @@
             allowfullscreen
           ></iframe>
         </div>
-        <!--        <video-->
-        <!--          autoplay-->
-        <!--          muted-->
-        <!--          poster="https://dx35vtwkllhj9.cloudfront.net/justentertainment/de-grote-sinterklaasfilm-trammelant-in-spanje/images/bg.jpg"-->
-        <!--          aria-label="Background footage from De Grote Sinterklaasfilm: Trammelant in Spanje"-->
-        <!--        >-->
-        <!--          <source-->
-        <!--            src="https://dx35vtwkllhj9.cloudfront.net/justentertainment/de-grote-sinterklaasfilm-trammelant-in-spanje/video/bg.webm"-->
-        <!--            type="video/webm"-->
-        <!--          />-->
-        <!--          <source-->
-        <!--            src="https://player.vimeo.com/external/644017152.sd.mp4"-->
-        <!--            type="video/mp4"-->
-        <!--          />-->
-        <!--        </video>-->
-
-        <!--        <iframe-->
-        <!--          frameborder="0"-->
-        <!--          height="100%"-->
-        <!--          width="100%"-->
-        <!--          src="https://youtube.com/embed/YOkPspMfPpQ?autoplay=1&controls=0&showinfo=0&autohide=1"-->
-        <!--        >-->
-        <!--        <iframe-->
-        <!--          src="https://player.vimeo.com/video/111172?background=1"-->
-        <!--          width="100%"-->
-        <!--          height="100%"-->
-        <!--          allow="autoplay; fullscreen"-->
-        <!--          allowfullscreen-->
-        <!--        ></iframe>-->
       </div>
       <div
         class="site-width pb-6 flex flex-col items-center justify-start"
@@ -207,14 +179,14 @@
 
     <section class="bg-gray-900 text-white p-4 text-center">
       <h2 class="text-2xl md:text-4xl font-semibold uppercase leading-tight">
-        30 januari te zien alsd voorvertoning
+        30 januari te zien als voorvertoning
       </h2>
     </section>
 
-    <section class="px-4 md:px-6 py-6">
+    <section id="tickets" class="px-4 md:px-6 py-6">
       <div class="site-width">
         <h3 class="text-3xl md:text-5xl font-medium mb-3 header-with-line">
-          Koop tickets <a id="tickets"></a>
+          Koop tickets
         </h3>
         <p class="font-light md:text-xl first-letter-large">
           Bestel hier je ticket voor de speciale voorvertoningen van WOLF
@@ -402,7 +374,6 @@
 <script>
 import FooterImages from "@/components/Footer";
 import Modal from "@/components/Modal";
-import gsap from "nuxt-gsap-module";
 
 export default {
   components: {

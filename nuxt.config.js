@@ -1,16 +1,7 @@
 export default {
-  buildModules: [
-    "@nuxtjs/tailwindcss",
-    "@nuxtjs/google-fonts",
-    "@nuxt/image",
-    "nuxt-gsap-module",
-  ],
-  gsap: {
-    /* Module Options */
-    extraPlugins: {
-      scrollTo: true,
-      scrollTrigger: true,
-    },
+  buildModules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@nuxt/image"],
+  build: {
+    transpile: ["gsap"],
   },
   components: true,
   target: "static",
@@ -18,7 +9,10 @@ export default {
     // Setting the server to 0, gives you an ip address to test on other devices
     // host: "0",
   },
-  plugins: [{ src: "./plugins/install", ssr: true }],
+  plugins: [
+    { src: "./plugins/gsap", mode: "client" },
+    { src: "./plugins/flicking", mode: "client" },
+  ],
   tailwindcss: {
     viewer: true,
   },
@@ -98,11 +92,11 @@ export default {
       { hid: "robots", name: "robots", content: "noindex" },
     ],
     link: [
-      {
-        hid: "flicking",
-        rel: "stylesheet",
-        href: "https://naver.github.io/egjs-flicking-plugins/release/latest/dist/flicking-plugins.css",
-      },
+      // {
+      //   hid: "flicking",
+      //   rel: "stylesheet",
+      //   href: "https://naver.github.io/egjs-flicking-plugins/release/latest/dist/flicking-plugins.css",
+      // },
       {
         hid: "canonical",
         rel: "canonical",
