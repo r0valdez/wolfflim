@@ -14,14 +14,13 @@
 </template>
 
 <script>
-import VueFlicking from "@egjs/vue-flicking";
+import { Flicking } from "@egjs/vue-flicking";
 import { Pagination, Arrow } from "@egjs/flicking-plugins";
-// import "@egjs/flicking-plugins/dist/flicking-plugins.css";
 
 export default {
   name: "Swiper",
   components: {
-    VueFlicking,
+    Flicking: Flicking,
   },
   data() {
     return {
