@@ -37,7 +37,6 @@
         <div class="label md:self-end mb-4">
           <span>30 Januari</span> te zien als voorvertoning
         </div>
-        <!--        <h1>{{ title }}</h1>-->
         <div class="w-full flex flex-col justify-center items-center flex-grow">
           <svg
             viewBox="0 0 625 224"
@@ -121,6 +120,15 @@
       <h2 class="text-2xl md:text-4xl font-semibold uppercase leading-tight">
         Het meest opzienbarende natuurverhaal van Nederland!
       </h2>
+
+      <div
+        data-vimeo-id="655988012"
+        data-vimeo-width="600"
+        data-vimeo-height="500"
+        id="test"
+      ></div>
+      <button id="pause-btn">pause</button>
+      <button id="play-btn">play</button>
     </section>
 
     <section class="bg-red-700 text-white px-4 md:px-6 py-6 clear-both">
@@ -374,6 +382,7 @@
 <script>
 import FooterImages from "@/components/Footer";
 import Modal from "@/components/Modal";
+import Player from "@vimeo/player";
 
 export default {
   components: {
@@ -392,6 +401,25 @@ export default {
       title: this.title,
     };
   },
-  mounted() {},
+  mounted() {
+    let iframe = document.getElementById("test");
+    let player = new Player(iframe);
+
+    player.on("play", function () {
+      console.log("Played the video");
+    });
+
+    player.getVideoTitle().then(function (title) {
+      console.log("title:", title);
+    });
+    let pauseButton = document.getElementById("pause-btn");
+    pauseButton.addEventListener("click", function () {
+      player.pause();
+    });
+    let playButton = document.getElementById("play-btn");
+    playButton.addEventListener("click", function () {
+      player.play();
+    });
+  },
 };
 </script>

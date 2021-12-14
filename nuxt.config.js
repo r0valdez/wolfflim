@@ -92,11 +92,6 @@ export default {
       { hid: "robots", name: "robots", content: "noindex" },
     ],
     link: [
-      // {
-      //   hid: "flicking",
-      //   rel: "stylesheet",
-      //   href: "https://naver.github.io/egjs-flicking-plugins/release/latest/dist/flicking-plugins.css",
-      // },
       {
         hid: "canonical",
         rel: "canonical",
