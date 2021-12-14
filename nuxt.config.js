@@ -11,7 +11,7 @@ export default {
   },
   plugins: [
     { src: "./plugins/gsap", mode: "client" },
-    { src: "./plugins/flicking", mode: "client" },
+    { src: "./plugins/flicking" },
   ],
   tailwindcss: {
     viewer: true,
@@ -92,11 +92,11 @@ export default {
       { hid: "robots", name: "robots", content: "noindex" },
     ],
     link: [
-      // {
-      //   hid: "flicking",
-      //   rel: "stylesheet",
-      //   href: "https://naver.github.io/egjs-flicking-plugins/release/latest/dist/flicking-plugins.css",
-      // },
+      {
+        hid: "flicking",
+        rel: "stylesheet",
+        href: "https://naver.github.io/egjs-flicking-plugins/release/latest/dist/flicking-plugins.css",
+      },
       {
         hid: "canonical",
         rel: "canonical",
