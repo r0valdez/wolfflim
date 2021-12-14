@@ -1,7 +1,7 @@
 <template>
   <nav class="menu px-4 md:px-6 py-3 fixed w-full">
     <div class="site-width flex gap-3">
-      <t-btn btn-text="Menu" href="#tickets" color="secondary" />
+      <!--      <t-btn btn-text="Menu" href="#tickets" color="secondary" />-->
       <t-btn btn-text="Koop tickets" href="#tickets"
         ><svg
           width="31"
@@ -29,7 +29,7 @@
 .menu {
   display: flex;
   flex-direction: row;
-  position: fixed;
+  //position: fixed;
   z-index: 100;
 
   li {
