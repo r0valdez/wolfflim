@@ -2,7 +2,7 @@
   <nav class="menu px-4 md:px-6 py-3 fixed w-full">
     <div class="site-width flex gap-3">
       <!--      <t-btn btn-text="Menu" href="#tickets" color="secondary" />-->
-      <t-btn btn-text="Koop tickets" href="#tickets"
+      <t-btn class="large" href="#tickets" btn-text="Koop tickets"
         ><svg
           width="31"
           height="38"
@@ -10,7 +10,7 @@
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="xMidYMid meet"
-          style="width: 20px; height: auto; margin-right: 0.5rem"
+          class="mr-2"
         >
           <path
             fill-rule="evenodd"
@@ -19,7 +19,6 @@
             fill="white"
           />
         </svg>
-        Koop tickets
       </t-btn>
     </div>
   </nav>

@@ -24,11 +24,14 @@ export default {
 <style lang="scss">
 footer {
   img {
-    height: 40px;
+    height: 34px;
     @screen md {
-      height: 50px;
+      height: 40px;
     }
     @screen lg {
+      height: 50px;
+    }
+    @screen xl {
       height: 60px;
     }
   }

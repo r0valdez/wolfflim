@@ -1,7 +1,10 @@
+import Vue from "vue";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 // Detect if a link's href goes to the current page
 function getSamePageAnchor(link) {
@@ -25,7 +28,7 @@ function scrollToHash(hash, e) {
     // Offset is used for the menu
     gsap.to(window, {
       duration: 0.7,
-      scrollTo: { y: elem, offsetY: 60 },
+      scrollTo: { y: elem, offsetY: 50 },
       ease: "power2",
     });
   }
@@ -40,3 +43,9 @@ document.querySelectorAll("a[href]").forEach((a) => {
 
 // Scroll to the element in the URL's hash on load
 scrollToHash(window.location.hash);
+
+Vue.mixin({
+  created() {
+    this.gsap = gsap;
+  },
+});

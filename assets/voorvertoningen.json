@@ -1,0 +1,227 @@
+[
+  {
+    "id": 1,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Almere",
+    "city": "Almere",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/79980/N_HO00003824/UALM/0/0/0/0"
+  },
+  {
+    "id": 2,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Breda",
+    "city": "Breda",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/115805/N_HO00003824/BREDA/0/0/0/0"
+  },
+  {
+    "id": 3,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Den Bosch",
+    "city": "Den Bosch",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/41405/N_HO00003824/BOSCH/0/0/0/0"
+  },
+  {
+    "id": 4,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Den Helder",
+    "city": "Den Helder",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/37499/N_HO00003824/UDHEL/0/0/0/0"
+  },
+  {
+    "id": 5,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Dordrecht",
+    "city": "Dordrecht",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/53087/N_HO00003824/DORD/0/0/0/0"
+  },
+  {
+    "id": 6,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Emmen",
+    "city": "Emmen",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/44707/N_HO00003824/UEMM/0/0/0/0"
+  },
+  {
+    "id": 7,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Enschede",
+    "city": "Enschede",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/78649/N_HO00003824/WCST/0/0/0/0"
+  },
+  {
+    "id": 8,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Haarlem",
+    "city": "Haarlem",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/7313/N_HO00003824/NHSCH/0/0/0/0"
+  },
+  {
+    "id": 9,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Hoofddorp",
+    "city": "Hoofddorp",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/42314/N_HO00003824/NHMEE/0/0/0/0"
+  },
+  {
+    "id": 10,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Jaarbeurs Utrecht",
+    "city": "Utrecht",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/125362/N_HO00003824/UTRE/0/0/0/0"
+  },
+  {
+    "id": 11,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Leidschendam",
+    "city": "Leidschendam",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/11698/N_HO00003824/LEIDS/0/0/0/0"
+  },
+  {
+    "id": 12,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Spijkenisse",
+    "city": "Spijkenisse",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/18328/N_HO00003824/SPIJK/0/0/0/0"
+  },
+  {
+    "id": 13,
+    "cinemaGroup": "Kinepolis",
+    "cinemaName": "Kinepolis Zoetermeer",
+    "city": "Zoetermeer",
+    "time": "10:30",
+    "date": "30 januari",
+    "ticketUrl": "https://kinepolis.nl/direct-vista-redirect/55111/N_HO00003824/UZOET/0/0/0/0"
+  },
+  {
+    "id": 14,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Amersfoort",
+    "city": "Amersfoort",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 15,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Apeldoorn",
+    "city": "Apeldoorn",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 16,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Den Bosch",
+    "city": "Den Bosch",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 17,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Deventer",
+    "city": "Deventer",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 18,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Doetinchem",
+    "city": "Doetinchem",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 19,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Eindhoven",
+    "city": "Eindhoven",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 20,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Hilversum",
+    "city": "Hilversum",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 21,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Hoogeveen",
+    "city": "Hoogeveen",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 22,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Hoogezand",
+    "city": "Hoogezand",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 23,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Kerkrade",
+    "city": "Kerkrade",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 24,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Nijmegen",
+    "city": "Nijmegen",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  },
+  {
+    "id": 25,
+    "cinemaGroup": "Vue",
+    "cinemaName": "Vue Vlaardingen",
+    "city": "Vlaardingen",
+    "time": "Bestel",
+    "date": "30 januari",
+    "ticketUrl": "https://www.vuecinemas.nl/films/film/wolf-speciale-voorpremiere"
+  }
+]

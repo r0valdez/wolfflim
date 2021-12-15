@@ -4,16 +4,15 @@
     :to="to"
     :href="href"
     @click="$emit('click')"
-    class="button"
+    class="button primary"
     :class="[
-      { 'bg-red-700': primary },
+      { primary: primary },
       { 'bg-green-500': success },
       { secondary: secondary },
     ]"
   >
-    <slot name="prepend"></slot>
-    <slot name="default">{{ btnText }}</slot>
-    <slot name="append"></slot>
+    <slot></slot>
+    {{ btnText }}
   </component>
 </template>
 
@@ -24,7 +23,7 @@ export default {
     btnText: {
       type: String,
       required: true,
-      default: "label empty",
+      default: null,
     },
     href: {
       type: String,
@@ -55,26 +54,25 @@ export default {
 
 <style scoped lang="scss">
 .button {
-  display: flex;
-  padding: 0.5em 1em;
-  /*border: 2px solid tomato;*/
-  border-radius: 0.5rem;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1;
-  text-decoration: none;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: 0.3s;
-  white-space: nowrap;
-  align-items: center;
+  @apply px-2 py-1 bg-red-700 flex font-semibold leading-snug no-underline uppercase cursor-pointer text-white flex-nowrap whitespace-nowrap items-center rounded-md duration-300;
+  @screen md {
+    @apply text-lg px-2 py-1;
+  }
+  &:hover {
+    @apply bg-red-800;
+  }
+  svg {
+    width: auto;
+    height: 1em;
+  }
+  &.large {
+    @apply text-lg px-3 py-1;
+    @screen md {
+      @apply text-2xl px-4 py-2;
+    }
+  }
 }
 .secondary {
   background-color: rgba(0, 0, 0, 0.5);
-}
-.button:hover {
-  //color: black;
 }
 </style>
