@@ -1,7 +1,7 @@
 <template>
   <div class="flex px-3 py-2 items-start md:items-center flex-col md:flex-row">
     <h4
-      class="text-lg md:text-xl uppercase font-semibold text-gray-400 md:pl-4 lg:pl-12 w-full md:w-1/4 leading-tight"
+      class="text-lg md:text-xl uppercase font-semibold text-gray-500 md:pl-4 lg:pl-12 w-full md:w-1/4 leading-tight"
     >
       {{ city }}
     </h4>

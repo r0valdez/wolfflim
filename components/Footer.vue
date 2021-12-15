@@ -2,16 +2,28 @@
   <footer
     class="flex justify-center xl:justify-between items-center flex-wrap gap-y-2 gap-x-3 md:gap-x-4 p-4 md:p-6 xl:px-10"
   >
-    <img src="~/assets/images/logo-bnn-vara.png" />
-    <img src="~/assets/images/logo-natuurmonumenten.png" />
-    <img src="~/assets/images/logo-ifaw.png" />
-    <img src="~/assets/images/logo-iwp.png" />
-    <img src="~/assets/images/logo-gelderland.png" />
-    <img src="~/assets/images/logo-veluweop1.png" />
-    <img src="~/assets/images/logo-ark.png" />
-    <img src="~/assets/images/logo-M-N-Film.png" />
-    <img src="~/assets/images/logo-zoogdier.png" />
-    <img src="~/assets/images/logo-rewilding-europe.png" />
+    <img src="~/assets/images/logo-bnn-vara.png" alt="logo bnn-vara" />
+    <img
+      src="~/assets/images/logo-natuurmonumenten.png"
+      alt="logo natuurmonumenten"
+    />
+    <img src="~/assets/images/logo-ifaw.png" alt="logo ifaw" />
+    <img src="~/assets/images/logo-iwp.png" alt="logo iwp" />
+    <img
+      src="~/assets/images/logo-gelderland.png"
+      alt="logo provincie gelderland"
+    />
+    <img src="~/assets/images/logo-veluweop1.png" alt="logo veluweop1" />
+    <img src="~/assets/images/logo-ark.png" alt="logo ark" />
+    <img src="~/assets/images/logo-M-N-Film.png" alt="logo M&N Media Group" />
+    <img
+      src="~/assets/images/logo-zoogdier.png"
+      alt="logoZoogdier vereniging"
+    />
+    <img
+      src="~/assets/images/logo-rewilding-europe.png"
+      alt="logo Rewilding Europe"
+    />
   </footer>
 </template>
 
