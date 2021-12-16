@@ -54,7 +54,7 @@ export default {
 
 <style scoped lang="scss">
 .button {
-  @apply px-2 py-1 bg-red-700 flex font-semibold leading-snug no-underline uppercase cursor-pointer text-white flex-nowrap whitespace-nowrap items-center rounded-md duration-300;
+  @apply px-2 py-1 bg-red-700 shadow-md hover:shadow-none flex font-semibold leading-snug no-underline uppercase cursor-pointer text-white flex-nowrap whitespace-nowrap items-center rounded-md duration-300;
   @screen md {
     @apply text-lg px-2 py-1;
   }

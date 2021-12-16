@@ -5,10 +5,12 @@ export default {
     "@nuxt/image",
     "@nuxtjs/pwa",
   ],
+  modules: [],
   build: {
     transpile: ["gsap"],
   },
 
+  // PWA more info: https://pwa.nuxtjs.org/setup
   pwa: {
     icon: true, // enables the icon module
   },
@@ -54,7 +56,7 @@ export default {
         name: "description",
         content: "Het meest opzienbarende natuurverhaal van Nederland!",
       },
-      { property: "og:site_name", content: "Wolf film" },
+      { hid: "og:site_name", property: "og:site_name", content: "Wolf film" },
       { hid: "og:type", property: "og:type", content: "website" },
       {
         hid: "og:url",
@@ -125,7 +127,6 @@ export default {
         sizes: "180x180",
         href: "./favicon/apple-touch-icon.png",
       },
-      { rel: "manifest", href: "./manifest.json" },
       {
         rel: "mask-icon",
         type: "image/png",
@@ -133,7 +134,7 @@ export default {
         href: "./favicon/safari-pinned-tab.svg",
       },
     ],
-
+    // Google tags
     __dangerouslyDisableSanitizers: ["script", "noscript"],
     noscript: [
       {
@@ -142,6 +143,8 @@ export default {
         innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TF6GX6B"
 height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
       },
+    ],
+    script: [
       {
         hid: "gtm-script2",
         innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

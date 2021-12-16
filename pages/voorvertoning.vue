@@ -126,6 +126,7 @@
         <nuxt-picture
           alt="Poster Wolf"
           src="/wolf-poster.jpg"
+          sizes="sm:500px lg:1000px"
           class="float-right rounded-lg shadow-lg overflow-hidden ml-4 md:mr-16"
           style="width: 50%; max-width: 300px"
         />
@@ -195,7 +196,7 @@
           v-bind:cinemaName="event.cinemaName"
           v-bind:cinemaGroup="event.cinemaGroup"
           v-bind:city="event.city"
-          v-bind:url="event.ticketUrl"
+          v-bind:ticketUrl="event.ticketUrl"
           v-bind:btnText="event.time"
           v-bind:event-date="event.date"
         />
@@ -211,13 +212,48 @@
         </h3>
       </div>
       <Swiper>
-        <nuxt-picture src="/wolf-still-1.jpg" alt="Wolf still 1" />
-        <nuxt-picture src="/wolf-still-2.jpg" alt="Wolf still 2" />
-        <nuxt-picture src="/wolf-still-3.jpg" alt="Wolf still 3" />
-        <nuxt-picture src="/wolf-still-4.jpg" alt="Wolf still 4" />
-        <nuxt-picture src="/wolf-still-5.jpg" alt="Wolf still 5" />
-        <nuxt-picture src="/wolf-still-6.jpg" alt="Wolf still 6" />
-        <nuxt-picture src="/wolf-still-7.jpg" alt="Wolf still 7" />
+        <nuxt-picture
+          src="/wolf-still-1.jpg"
+          alt="Wolf still 1"
+          sizes="sm:400px md:750px lg:1200px"
+          quality="80"
+        />
+        <nuxt-picture
+          src="/wolf-still-2.jpg"
+          alt="Wolf still 2"
+          sizes="sm:400px md:750px lg:1200px"
+          quality="80"
+        />
+        <nuxt-picture
+          src="/wolf-still-3.jpg"
+          alt="Wolf still 3"
+          sizes="sm:400px md:750px lg:1200px"
+          quality="80"
+        />
+        <nuxt-picture
+          src="/wolf-still-4.jpg"
+          alt="Wolf still 4"
+          sizes="sm:400px md:750px lg:1200px"
+          quality="80"
+        />
+        <nuxt-picture
+          src="/wolf-still-5.jpg"
+          alt="Wolf still 5"
+          sizes="sm:400px md:750px lg:1200px"
+          quality="80"
+        />
+        <nuxt-picture
+          src="/wolf-still-6.jpg"
+          alt="Wolf still 6"
+          sizes="sm:400px md:750px lg:1200px"
+          quality="80"
+        />
+        <nuxt-picture
+          src="/wolf-still-7.jpg"
+          alt="Wolf still 7"
+          sizes="sm:400px md:750px lg:1200px"
+          quality="80"
+        />
       </Swiper>
     </section>
 
