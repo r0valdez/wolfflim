@@ -101,6 +101,9 @@
 .flicking-camera {
     display: flex;
     flex-direction: row;
+    img {
+        width: 100%;
+    }
 }
 .flicking-pagination-bullet-active {
     background-color: white !important;
