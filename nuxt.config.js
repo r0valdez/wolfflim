@@ -1,11 +1,6 @@
 export default {
-  buildModules: [
-    "@nuxtjs/tailwindcss",
-    "@nuxtjs/google-fonts",
-    "@nuxt/image",
-    "@nuxtjs/pwa",
-  ],
-  modules: [],
+  buildModules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@nuxt/image"],
+  modules: ["@nuxtjs/pwa"],
   build: {
     transpile: ["gsap"],
   },
@@ -76,7 +71,7 @@ export default {
       {
         hid: "og:image",
         property: "og:image",
-        content: "./wolf-1200x630.png",
+        content: "/wolf-1200x630.png",
       },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
@@ -101,7 +96,7 @@ export default {
       {
         hid: "twitter:image",
         name: "twitter:image",
-        content: "./wolf-1200x630.png",
+        content: "/wolf-1200x630.png",
       },
     ],
     link: [
@@ -114,24 +109,24 @@ export default {
         rel: "icon",
         type: "image/png",
         sizes: "32x32",
-        href: "./favicon/favicon-32x32.png",
+        href: "/favicon/favicon-32x32.png",
       },
       {
         rel: "icon",
         type: "image/png",
         sizes: "16x16",
-        href: "./favicon/favicon-16x16.png",
+        href: "/favicon/favicon-16x16.png",
       },
       {
         rel: "apple-touch-icon",
         sizes: "180x180",
-        href: "./favicon/apple-touch-icon.png",
+        href: "/favicon/apple-touch-icon.png",
       },
       {
         rel: "mask-icon",
         type: "image/png",
         color: "#cd1719",
-        href: "./favicon/safari-pinned-tab.svg",
+        href: "/favicon/safari-pinned-tab.svg",
       },
     ],
     // Google tags
