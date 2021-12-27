@@ -143,6 +143,16 @@
           überhaupt gelukt is om de familie Wolf zo in beeld te brengen. Mijn
           fascinatie voor de wolf is hierdoor alleen maar groter geworden."
           <br /><br />
+          <a href="https://www.ifaw.org/nl" target="_blank">IFAW</a>IFAW zet
+          zich al jaren in om een goede terugkeer van de wolf mogelijk te maken.
+          De terugkeer van de wolf levert in Nederland discussies op. IFAW werkt
+          wereldwijd constructief aan oplossingen in conflicten tussen mensen en
+          wilde dieren. In Nederland vragen wij beleidmakers om zich beter voor
+          te bereiden op de aanwezigheid van wolven. Zodat wij in balans kunnen
+          samenleven met het dier. De fraaie natuurfilm WOLF van Cees van Kempen
+          maakt duidelijk hoe belangrijk de wolf is voor een evenwichtige natuur
+          en behoud van biodiversiteit. De film zal bijdragen aan een ecologisch
+          onderbouwd en politiek gedragen beleid.<br /><br />
           WOLF - Het meest opzienbarende natuurverhaal van Nederland. <br />
           <svg
             class="mt-2 kijkwijzer"
