@@ -7,7 +7,7 @@
     <!--      src="~/assets/images/logo-natuurmonumenten.png"-->
     <!--      alt="logo natuurmonumenten"-->
     <!--    />-->
-    <!--    <img src="~/assets/images/logo-ifaw.png" alt="logo ifaw" />-->
+
     <!--    <img src="~/assets/images/logo-iwp.png" alt="logo iwp" />-->
     <!--    <img-->
     <!--      src="~/assets/images/logo-gelderland.png"-->
@@ -23,7 +23,8 @@
     <!--        src="~/assets/images/logo-rewilding-europe.png"-->
     <!--        alt="logo Rewilding Europe"-->
     <!--    />-->
-    <img src="~/assets/images/logo-M-N-Film.png" alt="logo M&N Media Group" />
+    <img src="~/assets/images/logo-ifaw.png" alt="ifaw" />
+    <img src="~/assets/images/logo-M-N-Film.png" alt="M&N Media Group" />
   </footer>
 </template>
 
