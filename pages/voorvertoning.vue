@@ -268,6 +268,10 @@
       </Swiper>
     </section>
 
+    <section class="map-container">
+      <div id="map" class="h-full"></div>
+    </section>
+
     <FooterImages />
     <Modal v-if="showModal" @close-modal="showModal = false">
       <div class="video-container">
@@ -393,6 +397,13 @@
 .section-lg {
   @apply px-4 md:px-6 py-10 md:py-14;
 }
+
+.map-container {
+  height: 60vh;
+  @screen md {
+    height: 80vh;
+  }
+}
 </style>
 
 <script>
@@ -414,6 +425,7 @@ export default {
       title: "Voorvertoning",
       showModal: false,
       cinEvents: json,
+      cinemas: [],
     };
   },
   computed: {
@@ -460,6 +472,41 @@ export default {
         opacity: 1,
         ease: "none",
       });
+
+    this.loadCinemas();
+    this.setMapData();
   },
+  methods: {
+    authorize() {
+      return this.$axios.post('/login_check', { username: this.$config.username, password: this.$config.password });
+    },
+    loadCinemas() {
+      this.authorize().then(async (res) => {
+        this.$axios.setToken(res.data.token, "Bearer");
+        this.$axios.get('/cinemas', { params: { page: 1, itemsPerPage: 200 } }).then((res) => {
+          this.cinemas = res.data["hydra:member"];
+          this.setMapData();
+        })
+      })
+    },
+    setMapData() {
+      const apiKey = this.$config.maptilerApiKey;
+      if (this.cinemas.length > 0) {
+        const firstCinema = this.cinemas[0]
+        const initialState = { lng: firstCinema.longitude, lat: firstCinema.latitude, zoom: 11 };
+
+        const map = new maplibregl.Map({
+          container: 'map',
+          style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
+          center: [initialState.lng, initialState.lat],
+          zoom: initialState.zoom
+        });
+
+        this.cinemas.map((cinema) => {
+          new maplibregl.Marker().setLngLat([cinema.longitude, cinema.latitude]).addTo(map);
+        })
+      }
+    }
+  }
 };
 </script>

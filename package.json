@@ -12,6 +12,7 @@
   "dependencies": {
     "@egjs/flicking-plugins": "^4.2.2",
     "@egjs/vue-flicking": "^4.4.2",
+    "@nuxtjs/axios": "^5.13.6",
     "@vimeo/player": "^2.16.2",
     "gsap": "^3.8.0",
     "nuxt": "^2.15.8"
