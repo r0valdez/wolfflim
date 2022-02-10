@@ -413,6 +413,7 @@ import Player from "@vimeo/player";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import cinEvent from "@/components/CinEvent";
 import json from "~/assets/voorvertoningen.json";
+import { StorageService } from "@/helper/storage";
 
 export default {
   components: {
@@ -473,40 +474,56 @@ export default {
         ease: "none",
       });
 
-    this.loadCinemas();
+    if (StorageService.exist("cinemas")) {
+      this.cinemas = StorageService.getJsonData("cinemas");
+    } else {
+      this.loadCinemas();
+    }
     this.setMapData();
   },
   methods: {
     authorize() {
-      return this.$axios.post('/login_check', { username: this.$config.username, password: this.$config.password });
+      return this.$axios.post("/login_check", {
+        username: this.$config.username,
+        password: this.$config.password,
+      });
     },
     loadCinemas() {
       this.authorize().then(async (res) => {
         this.$axios.setToken(res.data.token, "Bearer");
-        this.$axios.get('/cinemas', { params: { page: 1, itemsPerPage: 200 } }).then((res) => {
-          this.cinemas = res.data["hydra:member"];
-          this.setMapData();
-        })
-      })
+        this.$axios
+          .get("/cinemas", { params: { page: 1, itemsPerPage: 200 } })
+          .then((res) => {
+            this.cinemas = res.data["hydra:member"];
+            this.setMapData();
+            StorageService.setJsonData("cinemas", this.cinemas);
+          });
+      });
     },
     setMapData() {
       const apiKey = this.$config.maptilerApiKey;
       if (this.cinemas.length > 0) {
-        const firstCinema = this.cinemas[0]
-        const initialState = { lng: firstCinema.longitude, lat: firstCinema.latitude, zoom: 11 };
+        const firstCinema = this.cinemas[0];
+        const initialState = {
+          lng: firstCinema.longitude,
+          lat: firstCinema.latitude,
+          zoom: 11,
+        };
 
         const map = new maplibregl.Map({
-          container: 'map',
+          container: "map",
           style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
           center: [initialState.lng, initialState.lat],
-          zoom: initialState.zoom
+          zoom: initialState.zoom,
         });
 
         this.cinemas.map((cinema) => {
-          new maplibregl.Marker().setLngLat([cinema.longitude, cinema.latitude]).addTo(map);
-        })
+          new maplibregl.Marker()
+            .setLngLat([cinema.longitude, cinema.latitude])
+            .addTo(map);
+        });
       }
-    }
-  }
+    },
+  },
 };
 </script>
