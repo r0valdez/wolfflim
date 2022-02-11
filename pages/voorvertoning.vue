@@ -517,10 +517,52 @@ export default {
           zoom: initialState.zoom,
         });
 
-        this.cinemas.map((cinema) => {
-          new maplibregl.Marker()
-            .setLngLat([cinema.longitude, cinema.latitude])
-            .addTo(map);
+        const points = {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: this.cinemas.map((cinema) => ({
+              type: "Feature",
+              properties: {},
+              geometry: {
+                type: "Point",
+                coordinates: [cinema.longitude, cinema.latitude],
+              },
+            })),
+          },
+        };
+
+        map.on("load", () => {
+          map.loadImage(
+            "https://maplibre.org/maplibre-gl-js-docs/assets/custom_marker.png",
+            (error, image) => {
+              if (error) throw error;
+              map.addImage("custom-marker", image);
+              map.addSource("points", points);
+              map.addLayer({
+                id: "symbols",
+                type: "symbol",
+                source: "points",
+                layout: {
+                  "icon-image": "custom-marker",
+                },
+              });
+            }
+          );
+
+          map.on("click", "symbols", function (e) {
+            map.flyTo({
+              center: e.features[0].geometry.coordinates,
+            });
+          });
+
+          map.on("mouseenter", "symbols", function () {
+            map.getCanvas().style.cursor = "pointer";
+          });
+
+          map.on("mouseleave", "symbols", function () {
+            map.getCanvas().style.cursor = "";
+          });
         });
       }
     },
