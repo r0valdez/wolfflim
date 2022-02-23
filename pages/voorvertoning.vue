@@ -193,6 +193,13 @@
 
     <section id="tickets" class="section-lg">
       <div class="site-width cinEvents">
+        <div class="pb-10 mx-4 sm:mx-auto sm:w-1/2">
+          <select v-model="city" class="w-full py-2.5 px-4 border border-gray-500 outline-none">
+            <option value="" hidden>ZOEK</option>
+            <option v-for="(item, index) in cities" :key="index" :checked="item.value === city" >{{ item.name }}</option>
+          </select>
+        </div>
+
         <h3 class="text-3xl md:text-5xl font-medium mb-3 header-with-line">
           Koop tickets
         </h3>
@@ -202,16 +209,22 @@
 
         <cinEvent
           class="cinEvent"
-          v-for="event in cinEventsSorted"
+          v-for="event in filteredPerformances"
           v-bind:key="event.id"
+          v-bind:id="event.id"
           v-bind:cinemaName="event.cinemaName"
           v-bind:cinemaGroup="event.cinemaGroup"
           v-bind:city="event.city"
           v-bind:ticketUrl="event.ticketUrl"
           v-bind:btnText="event.time"
           v-bind:event-date="event.date"
+          v-on:click="onClickEvent"
         />
       </div>
+    </section>
+
+    <section class="map-container">
+      <div id="map" class="h-full"></div>
     </section>
 
     <section class="text-white py-10 md:py-14 wolf-bg">
@@ -268,10 +281,6 @@
       </Swiper>
     </section>
 
-    <section class="map-container">
-      <div id="map" class="h-full"></div>
-    </section>
-
     <FooterImages />
     <Modal v-if="showModal" @close-modal="showModal = false">
       <div class="video-container">
@@ -287,6 +296,306 @@
     </Modal>
   </div>
 </template>
+
+<script>
+import FooterImages from "@/components/Footer";
+import Modal from "@/components/Modal";
+import Player from "@vimeo/player";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import cinEvent from "@/components/CinEvent";
+import json from "~/assets/voorvertoningen.json";
+import { StorageService } from "@/helper/storage";
+import { calcDistance } from "@/helper/utils";
+
+export default {
+  components: {
+    Modal,
+    FooterImages,
+    cinEvent,
+  },
+  head() {
+    return {
+      title: this.title,
+      meta: [{ hid: "robots", name: "robots", content: "noindex" }],
+    };
+  },
+  data() {
+    return {
+      title: "Voorvertoning",
+      showModal: false,
+      cinEvents: json,
+      latitude: 0,
+      longitude: 0,
+      city: "",
+      cinemas: [],
+      performances: [],
+      movieName: "Ida",
+
+      filteredCinemas: [],
+      filteredPerformances: [],
+
+      map: null,
+      
+      cities: [{
+        value: "Schiedam",
+        name: "Schiedam",
+      }, {
+        value: "Amsterdam",
+        name: "Amsterdam",
+      }, {
+        value: "Maastricht",
+        name: "Maastricht",
+      }, {
+        value: "Rotterdam",
+        name: "Rotterdam",
+      }, {
+        value: "Breda",
+        name: "Breda",
+      }, {
+        value: "Groningen",
+        name: "Groningen",
+      }, {
+        value: "Leiden",
+        name: "Leiden",
+      }],
+      playPromise: null,
+    };
+  },
+  computed: {
+    cinEventsSorted: function () {
+      // `this` points to the vm instance
+      return this.cinEvents.sort((a, b) => a.city.localeCompare(b.city));
+    },
+    filteredCinemas1() {
+      let cinemas = this.cinemas.map(cinema => {
+        const distance = calcDistance(this.latitude, this.longitude, cinema.latitude, cinema.longitude);
+        return { ...cinema, distance }
+      });
+
+      const match = cinemas.filter(cinema => cinema.city === this.city).sort((a, b) => (a.distance - b.distance))
+      const unmatch = cinemas.filter(cinema => cinema.city !== this.city).sort((a, b) => (a.distance - b.distance))
+
+      return [...match, ...unmatch]
+    },
+    filteredPerformances1() {
+      let results = [];
+      let performances = this.performances;
+      this.filteredCinemas.forEach(cinema => {
+        const a = performances.filter((performance) => performance.cinema == cinema["@id"]).map((performance) => {
+          const date = new Date(performance.start);
+          const eventDate = date.getDay() + " " + new Intl.DateTimeFormat("nl", { month: "long" }).format(date);
+          
+          return {
+            id: performance.id,
+            city: cinema.city,
+            cinemaName: cinema.name,
+            cinemaGroup: "",
+            cinema: performance.cinema,
+            ticketUrl: performance.ticketUrl,
+            time: performance.start.substr(11, 5),
+            date: eventDate,
+          }
+        });
+        results = [...results, ...a];
+      });
+      
+      return results;
+    },
+  },
+  watch: {
+    city(value) {
+      if (value) {
+        this.filterCinemas();
+        this.filterPerformances();
+      }
+    }
+  },
+  async mounted() {
+    this.initHeroVideo();
+
+    await this.getMyLocation();
+    this.initMap();
+
+    await this.authorize();
+    this.getCinemas();
+    this.getPerformances();
+  },
+  methods: {
+    playVideo(player) {
+      this.playPromise = player.play();
+    },
+    pauseVideo(player) {
+      if (this.playPromise) {
+        this.playPromise.then(() => {
+          player.pause();
+        })
+      }
+    },
+    initHeroVideo() {
+      let iframe = document.getElementById("heroVideo");
+      let player = new Player(iframe);
+
+      ScrollTrigger.create({
+        trigger: ".video-wrapper",
+        start: "top center",
+        end: "bottom center",
+        // markers: true,
+        toggleClass: { targets: ".video-wrapper", className: "active" },
+        onEnter: () => this.playVideo(player),
+        onEnterBack: () => this.playVideo(player),
+        onLeave: () => this.pauseVideo(player),
+        onLeaveBack: () => this.pauseVideo(player),
+      });
+
+      const tl = this.gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".hero",
+            scrub: true,
+            // markers: true,
+            start: "top top",
+            end: "bottom top",
+          },
+        })
+
+        .to(".overlay", {
+          opacity: 1,
+          ease: "none",
+        });
+    },
+    authorize() {
+      return this.$axios.post("/login_check", {
+        username: this.$config.username,
+        password: this.$config.password,
+      }).then((res) => {
+        this.$axios.setToken(res.data.token, "Bearer");
+      });
+    },
+    getMyLocation() {
+      return new Promise((resolve, reject) => {
+        if (!("geolocation" in navigator)) {
+          this.errorStr = "Geolocation is not available."
+        }
+
+        navigator.geolocation.getCurrentPosition(pos => {
+          this.latitude = pos.coords.latitude;
+          this.longitude = pos.coords.longitude;
+          resolve(true);
+        }, (err) => { reject(err); }, { enableHighAccuracy: true });
+      });
+    },
+    getCinemas() {
+      if (StorageService.exist("cinemas")) {
+        this.cinemas = StorageService.getJsonData("cinemas");
+        this.setCinemaMarkers();
+      } else {
+        this.$axios
+          .get("/cinemas")
+          .then((res) => {
+            const cinemas = res.data["hydra:member"];
+            this.cinemas = cinemas.map(cinema => {
+              const distance = calcDistance(this.latitude, this.longitude, cinema.latitude, cinema.longitude);
+              return { ...cinema, distance }
+            });
+            StorageService.setJsonData("cinemas", this.cinemas);
+            this.setCinemaMarkers();
+          });
+      }
+    },
+    getPerformances() {
+      this.$axios.get("/movies", { params: { search: this.movieName } }).then((res) => {
+        const movies = res.data["hydra:member"];
+        if (movies.length > 0) {
+          this.$axios.get(`/movies/${movies[0].id}/performances`).then((res) => {
+            this.performances = res.data["hydra:member"];
+            this.filterPerformances();
+          });
+        }
+      })
+    },
+    filterCinemas() {
+      const match = this.cinemas.filter(cinema => cinema.city === this.city).sort((a, b) => (a.distance - b.distance))
+      const unmatch = this.cinemas.filter(cinema => cinema.city !== this.city).sort((a, b) => (a.distance - b.distance))
+
+      this.filteredCinemas = [...match, ...unmatch];
+    },
+    filterPerformances() {
+      this.filteredPerformances = [];
+      this.filteredCinemas.forEach(cinema => {
+        const a = this.performances.filter((performance) => performance.cinema === cinema["@id"]).map((performance) => {
+          const date = new Date(performance.start);
+          const eventDate = date.getDay() + " " + new Intl.DateTimeFormat("nl", { month: "long" }).format(date);
+          
+          return {
+            id: performance.id,
+            city: cinema.city,
+            cinemaName: cinema.name,
+            cinemaGroup: "Vue",
+            cinema: performance.cinema,
+            ticketUrl: performance.ticketUrl,
+            time: performance.start.substr(11, 5),
+            date: eventDate,
+          }
+        });
+
+        // Move to marker of the first cinema of search result
+        if (this.filterPerformances.length == 0 && a.length > 0) {
+          console.log("First Cinema: ", cinema);
+
+          this.map.flyTo({
+            center: [cinema.longitude, cinema.latitude],
+          });
+        }
+        this.filteredPerformances = [...this.filteredPerformances, ...a];
+      });
+    },
+    initMap() {
+      const apiKey = this.$config.maptilerApiKey;
+
+      this.map = new maplibregl.Map({
+        container: "map",
+        style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
+        center: [this.longitude, this.latitude],
+        zoom: 11,
+      });
+    },
+    setCinemaMarkers() {
+      const geojson = {
+        type: "FeatureCollection",
+        features: this.cinemas.map((cinema) => {
+          return {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [cinema.longitude, cinema.latitude],
+            }
+          }
+        }),
+      }
+
+      const map = this.map;
+      geojson.features.forEach(function (marker) {
+        new maplibregl.Marker()
+          .setLngLat(marker.geometry.coordinates)
+          .addTo(map)
+          .getElement()
+          .addEventListener("click", function () {
+            map.flyTo({
+              center: marker.geometry.coordinates,
+            });
+          });
+      });
+    },
+    onClickEvent(performanceId) {
+      const cinema = this.cinemas.find(cinema => cinema["@id"] === this.filteredPerformances.find(item => item.id === performanceId).cinema);
+      this.map.flyTo({
+        center: [cinema.longitude, cinema.latitude],
+      });
+    }
+  },
+};
+</script>
+
 
 <style lang="scss">
 .hero {
@@ -405,167 +714,3 @@
   }
 }
 </style>
-
-<script>
-import FooterImages from "@/components/Footer";
-import Modal from "@/components/Modal";
-import Player from "@vimeo/player";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import cinEvent from "@/components/CinEvent";
-import json from "~/assets/voorvertoningen.json";
-import { StorageService } from "@/helper/storage";
-
-export default {
-  components: {
-    Modal,
-    FooterImages,
-    cinEvent,
-  },
-  data() {
-    return {
-      title: "Voorvertoning",
-      showModal: false,
-      cinEvents: json,
-      cinemas: [],
-    };
-  },
-  computed: {
-    cinEventsSorted: function () {
-      // `this` points to the vm instance
-      return this.cinEvents.sort((a, b) => a.city.localeCompare(b.city));
-    },
-  },
-
-  head() {
-    return {
-      title: this.title,
-      meta: [{ hid: "robots", name: "robots", content: "noindex" }],
-    };
-  },
-  mounted() {
-    let iframe = document.getElementById("heroVideo");
-    let player = new Player(iframe);
-
-    ScrollTrigger.create({
-      trigger: ".video-wrapper",
-      start: "top center",
-      end: "bottom center",
-      // markers: true,
-      toggleClass: { targets: ".video-wrapper", className: "active" },
-      onEnter: () => player.play(),
-      onEnterBack: () => player.play(),
-      onLeave: () => player.pause(),
-      onLeaveBack: () => player.pause(),
-    });
-
-    const tl = this.gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ".hero",
-          scrub: true,
-          // markers: true,
-          start: "top top",
-          end: "bottom top",
-        },
-      })
-
-      .to(".overlay", {
-        opacity: 1,
-        ease: "none",
-      });
-
-    if (StorageService.exist("cinemas")) {
-      this.cinemas = StorageService.getJsonData("cinemas");
-    } else {
-      this.loadCinemas();
-    }
-    this.setMapData();
-  },
-  methods: {
-    authorize() {
-      return this.$axios.post("/login_check", {
-        username: this.$config.username,
-        password: this.$config.password,
-      });
-    },
-    loadCinemas() {
-      this.authorize().then(async (res) => {
-        this.$axios.setToken(res.data.token, "Bearer");
-        this.$axios
-          .get("/cinemas", { params: { page: 1, itemsPerPage: 200 } })
-          .then((res) => {
-            this.cinemas = res.data["hydra:member"];
-            this.setMapData();
-            StorageService.setJsonData("cinemas", this.cinemas);
-          });
-      });
-    },
-    setMapData() {
-      const apiKey = this.$config.maptilerApiKey;
-      if (this.cinemas.length > 0) {
-        const firstCinema = this.cinemas[0];
-        const initialState = {
-          lng: firstCinema.longitude,
-          lat: firstCinema.latitude,
-          zoom: 11,
-        };
-
-        const map = new maplibregl.Map({
-          container: "map",
-          style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
-          center: [initialState.lng, initialState.lat],
-          zoom: initialState.zoom,
-        });
-
-        const points = {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: this.cinemas.map((cinema) => ({
-              type: "Feature",
-              properties: {},
-              geometry: {
-                type: "Point",
-                coordinates: [cinema.longitude, cinema.latitude],
-              },
-            })),
-          },
-        };
-
-        map.on("load", () => {
-          map.loadImage(
-            "https://maplibre.org/maplibre-gl-js-docs/assets/custom_marker.png",
-            (error, image) => {
-              if (error) throw error;
-              map.addImage("custom-marker", image);
-              map.addSource("points", points);
-              map.addLayer({
-                id: "symbols",
-                type: "symbol",
-                source: "points",
-                layout: {
-                  "icon-image": "custom-marker",
-                },
-              });
-            }
-          );
-
-          map.on("click", "symbols", function (e) {
-            map.flyTo({
-              center: e.features[0].geometry.coordinates,
-            });
-          });
-
-          map.on("mouseenter", "symbols", function () {
-            map.getCanvas().style.cursor = "pointer";
-          });
-
-          map.on("mouseleave", "symbols", function () {
-            map.getCanvas().style.cursor = "";
-          });
-        });
-      }
-    },
-  },
-};
-</script>

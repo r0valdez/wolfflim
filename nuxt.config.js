@@ -33,11 +33,10 @@ export default {
     display: "swap", // 'auto' | 'block' | 'swap' | 'fallback' | 'optional',
   },
   css: ["./assets/css/common"],
-  
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL:
-      process.env.API_URL || "https://filmfeed.tera.nl/api",
+    baseURL: process.env.API_URL || "https://filmfeed.tera.nl/api",
   },
 
   publicRuntimeConfig: {
@@ -145,7 +144,7 @@ export default {
       {
         rel: "stylesheet",
         href: "https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.css",
-      }
+      },
     ],
     // Google tags
     __dangerouslyDisableSanitizers: ["script", "noscript"],
@@ -170,7 +169,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       },
       {
         src: "https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.js",
-      }
+      },
     ],
   },
 };
