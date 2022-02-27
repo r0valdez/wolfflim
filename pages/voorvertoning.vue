@@ -329,7 +329,7 @@ export default {
       city: "",
       cinemas: [],
       performances: [],
-      movieName: "Ida",
+      movieName: "The Godfather",
 
       filteredCinemas: [],
       filteredPerformances: [],
