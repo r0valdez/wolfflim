@@ -194,10 +194,26 @@
     <section id="tickets" class="section-lg">
       <div class="site-width cinEvents">
         <div class="pb-10 mx-4 sm:mx-auto sm:w-1/2">
-          <select v-model="city" class="w-full py-2.5 px-4 border border-gray-500 outline-none">
-            <option value="" hidden>ZOEK</option>
-            <option v-for="(item, index) in cities" :key="index" :checked="item.value === city" >{{ item.name }}</option>
-          </select>
+          <div>
+            <input
+              :value="city"
+              @input="onSearchInput"
+              class="w-full py-2.5 px-4 border border-gray-500 outline-none"
+              placeholder="ZOEK"
+            />
+            <ul
+              class="list-none w-full m-0 p-0 border border-gray-500 max-h-[12rem] overflow-y-auto"
+            >
+              <li
+                v-for="(item, index) in cinemaSearchOptions"
+                :key="index"
+                @click="onSelectSearchOption(item)"
+                class="py-2.5 px-4 text-lg border-b border-gray-500 cursor-pointer hover:bg-gray-100 transition-all duration-500"
+              >
+                {{ item.description }}
+              </li>
+            </ul>
+          </div>
         </div>
 
         <h3 class="text-3xl md:text-5xl font-medium mb-3 header-with-line">
@@ -306,6 +322,7 @@ import cinEvent from "@/components/CinEvent";
 import json from "~/assets/voorvertoningen.json";
 import { StorageService } from "@/helper/storage";
 import { calcDistance } from "@/helper/utils";
+import cityJson from "~/assets/Nederland.json";
 
 export default {
   components: {
@@ -324,19 +341,24 @@ export default {
       title: "Voorvertoning",
       showModal: false,
       cinEvents: json,
-      latitude: 0,
-      longitude: 0,
+
       city: "",
+      cities: [],
       cinemas: [],
       performances: [],
       movieName: "The Godfather",
+      cinemaSearchOptions: [],
 
       filteredCinemas: [],
       filteredPerformances: [],
 
+      // NL - Amsterdam (Noord-Holland Province)
+      latitude: 52.35,
+      longitude: 4.92,
+
       map: null,
-      
-      cities: [{
+
+      /* cities: [{
         value: "Schiedam",
         name: "Schiedam",
       }, {
@@ -357,7 +379,7 @@ export default {
       }, {
         value: "Leiden",
         name: "Leiden",
-      }],
+      }], */
       playPromise: null,
     };
   },
@@ -366,54 +388,28 @@ export default {
       // `this` points to the vm instance
       return this.cinEvents.sort((a, b) => a.city.localeCompare(b.city));
     },
-    filteredCinemas1() {
-      let cinemas = this.cinemas.map(cinema => {
-        const distance = calcDistance(this.latitude, this.longitude, cinema.latitude, cinema.longitude);
-        return { ...cinema, distance }
-      });
-
-      const match = cinemas.filter(cinema => cinema.city === this.city).sort((a, b) => (a.distance - b.distance))
-      const unmatch = cinemas.filter(cinema => cinema.city !== this.city).sort((a, b) => (a.distance - b.distance))
-
-      return [...match, ...unmatch]
-    },
-    filteredPerformances1() {
-      let results = [];
-      let performances = this.performances;
-      this.filteredCinemas.forEach(cinema => {
-        const a = performances.filter((performance) => performance.cinema == cinema["@id"]).map((performance) => {
-          const date = new Date(performance.start);
-          const eventDate = date.getDay() + " " + new Intl.DateTimeFormat("nl", { month: "long" }).format(date);
-          
-          return {
-            id: performance.id,
-            city: cinema.city,
-            cinemaName: cinema.name,
-            cinemaGroup: "",
-            cinema: performance.cinema,
-            ticketUrl: performance.ticketUrl,
-            time: performance.start.substr(11, 5),
-            date: eventDate,
-          }
-        });
-        results = [...results, ...a];
-      });
-      
-      return results;
-    },
   },
-  watch: {
-    city(value) {
-      if (value) {
-        this.filterCinemas();
-        this.filterPerformances();
+  created() {
+    this.cities = cityJson.features.map((feature) => {
+      let description = feature.properties.name + ", ";
+      const inw = feature.properties.cmt.split(" ")[3];
+      if (inw && inw !== "-") {
+        description += inw + " ";
       }
-    }
+      description += feature.properties.cmt.split(" ")[1] + " NEDERLAND";
+      return {
+        name: feature.properties.name,
+        description,
+        geometry: feature.geometry,
+        type: "city",
+      };
+    });
   },
   async mounted() {
     this.initHeroVideo();
 
     await this.getMyLocation();
+    console.log("current position: ", this.latitude, this.longitude);
     this.initMap();
 
     await this.authorize();
@@ -428,7 +424,7 @@ export default {
       if (this.playPromise) {
         this.playPromise.then(() => {
           player.pause();
-        })
+        });
       }
     },
     initHeroVideo() {
@@ -464,24 +460,32 @@ export default {
         });
     },
     authorize() {
-      return this.$axios.post("/login_check", {
-        username: this.$config.username,
-        password: this.$config.password,
-      }).then((res) => {
-        this.$axios.setToken(res.data.token, "Bearer");
-      });
+      return this.$axios
+        .post("/login_check", {
+          username: this.$config.username,
+          password: this.$config.password,
+        })
+        .then((res) => {
+          this.$axios.setToken(res.data.token, "Bearer");
+        });
     },
     getMyLocation() {
       return new Promise((resolve, reject) => {
         if (!("geolocation" in navigator)) {
-          this.errorStr = "Geolocation is not available."
+          this.errorStr = "Geolocation is not available.";
         }
 
-        navigator.geolocation.getCurrentPosition(pos => {
-          this.latitude = pos.coords.latitude;
-          this.longitude = pos.coords.longitude;
-          resolve(true);
-        }, (err) => { reject(err); }, { enableHighAccuracy: true });
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            this.latitude = pos.coords.latitude;
+            this.longitude = pos.coords.longitude;
+            resolve(true);
+          },
+          (err) => {
+            reject(err);
+          },
+          { enableHighAccuracy: true }
+        );
       });
     },
     getCinemas() {
@@ -489,54 +493,62 @@ export default {
         this.cinemas = StorageService.getJsonData("cinemas");
         this.setCinemaMarkers();
       } else {
-        this.$axios
-          .get("/cinemas")
-          .then((res) => {
-            const cinemas = res.data["hydra:member"];
-            this.cinemas = cinemas.map(cinema => {
-              const distance = calcDistance(this.latitude, this.longitude, cinema.latitude, cinema.longitude);
-              return { ...cinema, distance }
-            });
-            StorageService.setJsonData("cinemas", this.cinemas);
-            this.setCinemaMarkers();
-          });
+        this.$axios.get("/cinemas").then((res) => {
+          this.cinemas = res.data["hydra:member"];
+          this.setCinemaDistance();
+          StorageService.setJsonData("cinemas", this.cinemas);
+          this.setCinemaMarkers();
+        });
       }
     },
     getPerformances() {
-      this.$axios.get("/movies", { params: { search: this.movieName } }).then((res) => {
-        const movies = res.data["hydra:member"];
-        if (movies.length > 0) {
-          this.$axios.get(`/movies/${movies[0].id}/performances`).then((res) => {
-            this.performances = res.data["hydra:member"];
-            this.filterPerformances();
-          });
-        }
-      })
+      this.$axios
+        .get("/movies", { params: { search: this.movieName } })
+        .then((res) => {
+          const movies = res.data["hydra:member"];
+          if (movies.length > 0) {
+            this.$axios
+              .get(`/movies/${movies[0].id}/performances`)
+              .then((res) => {
+                this.performances = res.data["hydra:member"];
+                this.filterPerformances();
+              });
+          }
+        });
     },
     filterCinemas() {
-      const match = this.cinemas.filter(cinema => cinema.city === this.city).sort((a, b) => (a.distance - b.distance))
-      const unmatch = this.cinemas.filter(cinema => cinema.city !== this.city).sort((a, b) => (a.distance - b.distance))
+      const match = this.cinemas
+        .filter((cinema) => cinema.city === this.city)
+        .sort((a, b) => a.distance - b.distance);
+      const unmatch = this.cinemas
+        .filter((cinema) => cinema.city !== this.city)
+        .sort((a, b) => a.distance - b.distance);
 
       this.filteredCinemas = [...match, ...unmatch];
     },
     filterPerformances() {
       this.filteredPerformances = [];
-      this.filteredCinemas.forEach(cinema => {
-        const a = this.performances.filter((performance) => performance.cinema === cinema["@id"]).map((performance) => {
-          const date = new Date(performance.start);
-          const eventDate = date.getDay() + " " + new Intl.DateTimeFormat("nl", { month: "long" }).format(date);
-          
-          return {
-            id: performance.id,
-            city: cinema.city,
-            cinemaName: cinema.name,
-            cinemaGroup: "Vue",
-            cinema: performance.cinema,
-            ticketUrl: performance.ticketUrl,
-            time: performance.start.substr(11, 5),
-            date: eventDate,
-          }
-        });
+      this.filteredCinemas.forEach((cinema) => {
+        const a = this.performances
+          .filter((performance) => performance.cinema === cinema["@id"])
+          .map((performance) => {
+            const date = new Date(performance.start);
+            const eventDate =
+              date.getDay() +
+              " " +
+              new Intl.DateTimeFormat("nl", { month: "long" }).format(date);
+
+            return {
+              id: performance.id,
+              city: cinema.city,
+              cinemaName: cinema.name,
+              cinemaGroup: "Vue",
+              cinema: performance.cinema,
+              ticketUrl: performance.ticketUrl,
+              time: performance.start.substr(11, 5),
+              date: eventDate,
+            };
+          });
 
         // Move to marker of the first cinema of search result
         if (this.filterPerformances.length == 0 && a.length > 0) {
@@ -547,6 +559,17 @@ export default {
           });
         }
         this.filteredPerformances = [...this.filteredPerformances, ...a];
+      });
+    },
+    setCinemaDistance() {
+      this.cinemas = this.cinemas.map((cinema) => {
+        const distance = calcDistance(
+          this.latitude,
+          this.longitude,
+          cinema.latitude,
+          cinema.longitude
+        );
+        return { ...cinema, distance };
       });
     },
     initMap() {
@@ -568,10 +591,10 @@ export default {
             geometry: {
               type: "Point",
               coordinates: [cinema.longitude, cinema.latitude],
-            }
-          }
+            },
+          };
         }),
-      }
+      };
 
       const map = this.map;
       geojson.features.forEach(function (marker) {
@@ -586,16 +609,40 @@ export default {
           });
       });
     },
+    setCinemaSearchOptions() {
+      this.cinemaSearchOptions = [];
+      if (this.city) {
+        this.cinemaSearchOptions = this.cities.filter((item) =>
+          item.description.toUpperCase().includes(this.city.toUpperCase())
+        );
+      }
+    },
+    onSearchInput(e) {
+      this.city = e.target.value;
+      this.setCinemaSearchOptions();
+      /* if (this.city) {
+        this.filterCinemas();
+        this.filterPerformances();
+      } */
+    },
+    onSelectSearchOption(item) {
+      this.city = item.name;
+      this.cinemaSearchOptions = [];
+    },
     onClickEvent(performanceId) {
-      const cinema = this.cinemas.find(cinema => cinema["@id"] === this.filteredPerformances.find(item => item.id === performanceId).cinema);
+      const cinema = this.cinemas.find(
+        (cinema) =>
+          cinema["@id"] ===
+          this.filteredPerformances.find((item) => item.id === performanceId)
+            .cinema
+      );
       this.map.flyTo({
         center: [cinema.longitude, cinema.latitude],
       });
-    }
+    },
   },
 };
 </script>
-
 
 <style lang="scss">
 .hero {

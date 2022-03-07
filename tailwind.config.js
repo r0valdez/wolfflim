@@ -1,7 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  // mode: "jit", // https://tailwindcss.com/docs/just-in-time-mode
+  mode: "jit", // https://tailwindcss.com/docs/just-in-time-mode
   purge: [
     "./components/**/*.{vue,js}",
     "./layouts/**/*.vue",
