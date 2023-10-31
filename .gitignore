@@ -1,1 +1,7 @@
 .idea
+.nuxt
+/node_modules
+/dist
+.output
+sw.*
+.env
